@@ -23,19 +23,25 @@ if __name__ == '__main__':
     # - Train PPNP for the initial inputs for SDG - #
     start_time = time.time()
 
-    prop_ppnp = PPRExact(graph.adj_matrix, alpha=0.1)
-    # prop_appnp = PPRPowerIteration(graph.adj_matrix, alpha=0.1, niter=10)
+    # prop_ppnp = PPRExact(graph.adj_matrix, alpha=0.1)
+    # model_args = {
+    #     'hiddenunits': [64],
+    #     'drop_prob': 0.5,
+    #     'propagation': prop_ppnp}
 
+    prop_appnp = PPRPowerIteration(graph.adj_matrix, alpha=0.1, niter=10)
     model_args = {
         'hiddenunits': [64],
         'drop_prob': 0.5,
-        'propagation': prop_ppnp}
+        'propagation': prop_appnp}
+
 
     idx_split_args = {'ntrain_per_class': 20, 'nstopping': 500, 'nknown': 1500, 'seed': 2413340114}
     reg_lambda = 5e-3
     learning_rate = 0.01
 
     test = False
+    test = True
     device = 'cuda'
     print_interval = 20
 
